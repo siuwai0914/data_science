@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" type ="text/css"  href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+
+    <h2>9-Day Weather Forecast</h2>
+    
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Max Temperature (°C)</th>
+            <th>Min Temperature (°C)</th>
+        </tr>
+        {% for i in range(weather_json.date_list|length) %}
+        <tr>
+            <td>{{ weather_json.date_list[i] }}</td>
+            <td>{{ weather_json.max_temp_list[i] }}</td>
+            <td>{{ weather_json.min_temp_list[i] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
