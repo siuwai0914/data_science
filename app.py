@@ -2,6 +2,7 @@ from flask import Flask, render_template
 import requests
 import json
 from bs4 import BeautifulSoup as soup
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -47,6 +48,41 @@ def show_news():
 
     return render_template("news.html", news_dict=news_dict)
 
+@app.route("/nike/<string:category>")
+def nike_scraping(category):
+    url = "https://www.nike.com.hk/man/" + category + "/shoe/list.htm?intpromo=PNTP"
+    html_page = soup(requests.get(url).content, "html")
+    product_page = html_page.find_all("dl", {"class": "product_list_content"})
+
+    product_name_list = []
+    product_price_list = []
+
+    for product in product_page:
+        product_name_list.append(product.find("span", {"class": "up"}).text)
+        product_price_list.append(product.find("dd", {"class": "color666"}).text)
+
+    product_dict = {
+        "name": product_name_list,
+        "price": product_price_list
+    }
+
+    df = pd.DataFrame(product_dict)
+
+    # Clean the price data
+    df['price'] = df['price'].apply(lambda x: int(x.split("HK$")[-1].replace(",", "")))
+
+    # Convert DataFrame to HTML
+    product_html = df.to_html(classes='data', index=False)
+
+    return render_template("nike_products.html", product_html=product_html)
+
+@app.route("/nike")
+def nike_home():
+    return render_template("nike_home.html")
+
+@app.route("/")
+def home():
+    return render_template("home.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
