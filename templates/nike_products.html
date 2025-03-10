@@ -8,6 +8,17 @@
 </head>
 <body>
     <h1>Nike Products</h1>
-    {{ product_html|safe }}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        {% for i in range(product_dict.name|length) %}
+            <tr>
+                <td>{{ product_dict.name[i] }}</td>
+                <td>${{ product_dict.price[i] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

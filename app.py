@@ -59,22 +59,14 @@ def nike_scraping(category):
 
     for product in product_page:
         product_name_list.append(product.find("span", {"class": "up"}).text)
-        product_price_list.append(product.find("dd", {"class": "color666"}).text)
+        product_price_list.append(product.find("dd", {"class": "color666"}).text.split("HK$")[-1].replace(",", ""))
 
     product_dict = {
         "name": product_name_list,
         "price": product_price_list
     }
 
-    df = pd.DataFrame(product_dict)
-
-    # Clean the price data
-    df['price'] = df['price'].apply(lambda x: int(x.split("HK$")[-1].replace(",", "")))
-
-    # Convert DataFrame to HTML
-    product_html = df.to_html(classes='data', index=False)
-
-    return render_template("nike_products.html", product_html=product_html)
+    return render_template("nike_products.html", product_dict=product_dict)
 
 @app.route("/nike")
 def nike_home():
