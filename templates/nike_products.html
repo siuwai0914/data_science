@@ -4,21 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nike Products</title>
-    <link rel="stylesheet" type ="text/css"  href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
 </head>
 <body>
-    <h1>Nike Products</h1>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-        </tr>
-        {% for i in range(product_dict.name|length) %}
+    <h1>Nike {{ category }} Shoes</h1>
+    <table id="productTable">
+        <thead>
             <tr>
-                <td>{{ product_dict.name[i] }}</td>
-                <td>${{ product_dict.price[i] }}</td>
+                <th>Name</th>
+                <th onclick="sortTable()">Price &#x25B2;&#x25BC;</th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for i in range(product_dict.name|length) %}
+                <tr>
+                    <td>{{ product_dict.name[i] }}</td>
+                    <td>${{ product_dict.price[i] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
+
+    <script type="text/javascript" src="{{url_for('static', filename='js/nikescript.js')}}"></script>
 </body>
 </html>

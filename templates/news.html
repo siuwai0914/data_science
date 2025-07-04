@@ -2,11 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type ="text/css"  href="{{url_for('static', filename='style.css')}}">
+    <title>Football News in SCMP</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
+    <script>
+        function filterNews() {
+            let input = document.getElementById("searchBox").value.toLowerCase();
+            let rows = document.querySelectorAll("table tr:not(:first-child)");
+
+            rows.forEach(row => {
+                let title = row.cells[0].textContent.toLowerCase();
+                row.style.display = title.includes(input) ? "" : "none";
+            });
+        }
+    </script>
 </head>
 <body>
-    <h1>Football news in SCMP</h1>
+    <h1>Football News in SCMP</h1>
+    
+    <input type="text" id="searchBox" onkeyup="filterNews()" placeholder="Search for news titles...">
+
     <table>
         <tr>
             <th>Title</th>

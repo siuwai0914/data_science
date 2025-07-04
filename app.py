@@ -1,11 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import requests
 import json
 from bs4 import BeautifulSoup as soup
+import os
 
 app = Flask(__name__)
 
-@app.route("/weather")
+@app.route("/hkweather")
 def index():
     url = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en"
     weather = json.loads(requests.get(url).content)
@@ -47,12 +48,15 @@ def show_news():
 
     return render_template("news.html", news_dict=news_dict)
 
-@app.route("/nike/<string:category>")
-def nike_scraping(category):
-    url = "https://www.nike.com.hk/man/" + category + "/shoe/list.htm?intpromo=PNTP"
-    html_page = soup(requests.get(url).content, "html")
+@app.route("/nike/<string:gender>/<string:category>")
+def nike_scraping(gender, category):
+    url = "https://www.nike.com.hk/" + gender + "/" + category + "/shoe/list.htm?intpromo=PNTP"
+    html_page = soup(requests.get(url).content, "html.parser")
     product_page = html_page.find_all("dl", {"class": "product_list_content"})
-
+    
+    if not product_page:
+        return render_template("error.html")
+    
     product_name_list = []
     product_price_list = []
 
@@ -65,7 +69,7 @@ def nike_scraping(category):
         "price": product_price_list
     }
 
-    return render_template("nike_products.html", product_dict=product_dict)
+    return render_template("nike_products.html", product_dict=product_dict, category=category.capitalize())
 
 @app.route("/nike")
 def nike_home():
@@ -74,6 +78,23 @@ def nike_home():
 @app.route("/")
 def home():
     return render_template("home.html")
+
+@app.route("/fifa")
+def fifa():
+    folder = 'static'
+    files = os.listdir(folder)
+    file_contents = {}
+
+    for file in files:
+        file_path = os.path.join(folder, file)
+
+        # Only read text-based files (avoid binary files like images)
+        if file.endswith(('.txt', '.css', '.js', '.html', '.json', '.csv')):
+            with open(file_path, 'r', encoding='utf-8') as f:
+                file_contents[file] = f.read()
+
+    return jsonify(file_contents)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
