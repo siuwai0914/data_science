@@ -22,7 +22,7 @@ def index():
     return render_template("weather_forecast.html", weather_json=weather_json)
 
 
-@app.route("/news")
+@app.route("/footballnews")
 def show_news():
     url = "https://www.scmp.com/rss/40/feed"
     soup_page = soup(requests.get(url).content, "xml")

@@ -3,39 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Football News in SCMP</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
-    <script>
-        function filterNews() {
-            let input = document.getElementById("searchBox").value.toLowerCase();
-            let rows = document.querySelectorAll("table tr:not(:first-child)");
-
-            rows.forEach(row => {
-                let title = row.cells[0].textContent.toLowerCase();
-                row.style.display = title.includes(input) ? "" : "none";
-            });
-        }
-    </script>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/news.css')}}">
 </head>
 <body>
-    <h1>Football News in SCMP</h1>
-    
-    <input type="text" id="searchBox" onkeyup="filterNews()" placeholder="Search for news titles...">
-
-    <table>
-        <tr>
-            <th>Title</th>
-            <th>Link</th>
-            <th>Date</th>
-            <th>Description</th>
-        </tr>
+    <header>
+        <h1>Football News in SCMP</h1>
+    </header>
+    <div class="header-margin"></div>
+    <div class="search-container">
+        <input type="text" id="search-box" onkeyup="filterNews()" placeholder="Search for news titles...">
+    </div>
+    <div class="news-list">
         {% for i in range(news_dict.title|length) %}
-        <tr>
-            <td>{{ news_dict.title[i] }}</td>
-            <td><a href="{{ news_dict.link[i] }}" target="_blank">Read More</a></td>
-            <td>{{ news_dict.pubDate[i] }}</td>
-            <td>{{ news_dict.description[i] }}</td>
-        </tr>
+        <div class="news-card">
+            <div>
+                <div class="news-title">{{ news_dict.title[i] }}</div>
+                <div class="news-date">
+                  {{ news_dict.pubDate[i] }}
+                </div>
+                <div class="news-desc">{{ news_dict.description[i] }}</div>
+            </div>
+            <a class="news-link" href="{{ news_dict.link[i] }}" target="_blank">Read More</a>
+        </div>
         {% endfor %}
-    </table>
+    </div>
+    <script type="text/javascript" src="{{url_for('static', filename='js/news.js')}}"></script>
+
 </body>
 </html>

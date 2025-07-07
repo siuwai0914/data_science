@@ -1,0 +1,136 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    color: #222;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: #24476f;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 2.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+h1::before {
+    content: "🌤️";
+    font-size: 2.2rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.table-container {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 24px 0;
+    background: rgba(255,255,255,0.95);
+    border-radius: 14px;
+    box-shadow: 0 6px 32px rgba(44, 62, 80, 0.10);
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1.08rem;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(36, 71, 111, 0.07);
+    margin: 0;
+}
+
+th, td {
+    padding: 14px 18px;
+    text-align: center;
+    border-bottom: 1.5px solid #f0f4f8;
+}
+
+th {
+    background: #e2edfa;
+    color: #24476f;
+    font-weight: 600;
+    font-size: 1.06rem;
+    border-bottom: 2.5px solid #bdd3ee;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:nth-child(even) {
+    background: #f6fafd;
+}
+
+tr:hover {
+    background: #eaf3fa;
+    transition: background 0.18s;
+}
+
+td {
+    font-size: 1.01rem;
+    color: #36506c;
+}
+
+@media (max-width: 700px) {
+    .table-container {
+        max-width: 98vw;
+        padding: 14px 2vw;
+    }
+    table, th, td {
+        font-size: 0.98rem;
+    }
+    h1 {
+        font-size: 1.35rem;
+        margin-top: 18px;
+    }
+}
+
+@media (max-width: 500px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+    thead {
+        display: none;
+    }
+    tr {
+        margin-bottom: 18px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(36, 71, 111, 0.04);
+        overflow: hidden;
+    }
+    td {
+        padding: 11px 14px;
+        text-align: left;
+        position: relative;
+    }
+    td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: bold;
+        color: #24476f;
+        margin-bottom: 2px;
+        font-size: 0.94rem;
+    }
+}
+
+a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: 500;
+}
+a:hover {
+    text-decoration: underline;
+}
