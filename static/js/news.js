@@ -11,3 +11,12 @@ function filterNews() {
         }
     });
 }
+
+function speakTitle(title) {
+    if ('speechSynthesis' in window) {
+        var utterance = new SpeechSynthesisUtterance(title);
+        window.speechSynthesis.speak(utterance);
+    } else {
+        alert("Sorry, your browser does not support speech synthesis.");
+    }
+}

@@ -23,7 +23,10 @@
                 </div>
                 <div class="news-desc">{{ news_dict.description[i] }}</div>
             </div>
-            <a class="news-link" href="{{ news_dict.link[i] }}" target="_blank">Read More</a>
+            <div class="news-actions">
+                <a class="action-btn" href="{{ news_dict.link[i] }}" target="_blank">Read More</a>
+                <button class="action-btn" onclick='speakTitle({{ (news_dict.title[i] + news_dict.description[i])|tojson }})'>Speak Title</button>
+            </div>
         </div>
         {% endfor %}
     </div>

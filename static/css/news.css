@@ -84,7 +84,7 @@ header h1 {
     color: #333;
     margin-bottom: 20px;
 }
-.news-link {
+.action-btn {
     align-self: flex-start;
     padding: 7px 18px;
     border-radius: 22px;
@@ -96,9 +96,14 @@ header h1 {
     font-size: 0.98rem;
     transition: background 0.18s;
     box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+    border: none; /* For button reset */
+    cursor: pointer;
 }
-.news-link:hover {
+.action-btn:hover {
     background: linear-gradient(90deg, #0056b3 0%, #00b9e6 100%);
+}
+.news-actions .action-btn {
+    align-self: unset;
 }
 @media (max-width: 1200px) {
     .news-list {
